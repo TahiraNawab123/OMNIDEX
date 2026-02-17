@@ -63,9 +63,6 @@ Each selected hero unlocks:
 - **Animations**: Framer Motion
 - **Game Engine**: Phaser.js (2D)
 
-### State Management
-- **Store**: Zustand
-
 ### Backend (Planned)
 - **Runtime**: Node.js
 - **Framework**: Express.js
