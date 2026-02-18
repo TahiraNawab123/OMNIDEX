@@ -1,0 +1,186 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #050a08;
+  --foreground: #e0e8e4;
+  --card: #0a1410;
+  --card-foreground: #e0e8e4;
+  --popover: #0a1410;
+  --popover-foreground: #e0e8e4;
+  --primary: #00ff88;
+  --primary-foreground: #050a08;
+  --secondary: #0d1f17;
+  --secondary-foreground: #e0e8e4;
+  --muted: #0d1f17;
+  --muted-foreground: #6b8a7a;
+  --accent: #00ff88;
+  --accent-foreground: #050a08;
+  --destructive: #ff3b5c;
+  --destructive-foreground: #ffffff;
+  --border: #1a3328;
+  --input: #1a3328;
+  --ring: #00ff88;
+  --radius: 0.5rem;
+}
+
+@theme inline {
+  --font-sans: 'Exo 2', 'Exo 2 Fallback', sans-serif;
+  --font-mono: 'Orbitron', 'Orbitron Fallback', monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Grid background */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Scrollbar & touch styling */
+.scroll-container {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #1a3328 #0a1410;
+}
+.scroll-container::-webkit-scrollbar {
+  height: 4px;
+}
+.scroll-container::-webkit-scrollbar-track {
+  background: #0a1410;
+  border-radius: 4px;
+}
+.scroll-container::-webkit-scrollbar-thumb {
+  background: #1a3328;
+  border-radius: 4px;
+}
+.scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #00ff88;
+}
+
+/* Neon glow */
+.neon-glow {
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.3), 0 0 30px rgba(0, 255, 136, 0.1), inset 0 0 15px rgba(0, 255, 136, 0.05);
+}
+
+.neon-glow-strong {
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.5), 0 0 40px rgba(0, 255, 136, 0.2), inset 0 0 20px rgba(0, 255, 136, 0.1);
+}
+
+/* Text glow */
+.text-glow-green {
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.5), 0 0 20px rgba(0, 255, 136, 0.3);
+}
+
+.text-glow-red {
+  text-shadow: 0 0 10px rgba(255, 59, 92, 0.5), 0 0 20px rgba(255, 59, 92, 0.3);
+}
+
+/* Progress bar animation */
+@keyframes fill-bar {
+  from { width: 0%; }
+}
+
+.animate-fill {
+  animation: fill-bar 1s ease-out forwards;
+}
+
+/* Scan line effect */
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.scanline-effect::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent 50%, rgba(0, 255, 136, 0.02) 50%);
+  background-size: 100% 4px;
+  pointer-events: none;
+}
+
+/* Fade in up */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.5s ease-out forwards;
+}
+
+/* Pulse glow on border */
+@keyframes pulse-border {
+  0%, 100% { border-color: rgba(0, 255, 136, 0.4); }
+  50% { border-color: rgba(0, 255, 136, 0.8); }
+}
+
+.animate-pulse-border {
+  animation: pulse-border 2s ease-in-out infinite;
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fill,
+  .animate-fade-in-up,
+  .animate-pulse-border {
+    animation: none !important;
+  }
+  .animate-fill {
+    width: var(--target-width, 0%) !important;
+  }
+  .animate-bounce {
+    animation: none !important;
+  }
+}
+
+/* Disable heavy effects on smaller screens for performance */
+@media (max-width: 640px) {
+  .scanline-effect::after {
+    display: none;
+  }
+  .grid-bg {
+    background-size: 40px 40px;
+  }
+}
